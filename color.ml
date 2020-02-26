@@ -29,15 +29,15 @@ let to_color (r : int) (g : int) (b : int) : color =
 
 (* red c -- Returns the red channel value for the color c *)
 let red (c : color) : int =
-  c mod 1000000  ;;
+  c / 1000000  ;;
 
 (* green c -- Returns the green channel value for the color c *)
 let green (c : color) : int =
-  (c - red c) mod 1000 ;;
+  (c mod 1000000) / 1000 ;;
 
 (* blue c -- Returns the blue channel value for the color c *)
 let blue (c : color) : int =
-   c - red c - green c ;;
+   c mod 1000 ;;
 
 (* color_named name -- Returns the color (as RGB representation)
    corresponding to the color name *)

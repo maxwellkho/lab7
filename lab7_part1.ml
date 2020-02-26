@@ -66,7 +66,7 @@ module Math : MATH =
     let max a = 
     match a with 
     | [] -> None
-    | hd :: tl -> Some (fold_left (fun x y -> if x >=y then x else y) hd tl)
+    | hd :: tl -> Some (fold_left (fun x y -> if x >= y then x else y) hd tl)
   end ;;
 
 (*......................................................................
@@ -76,6 +76,7 @@ type float option. Name the resulting value `result`. (Use explicit
 module prefixes for this exercise, not global or local opens.)
 ......................................................................*)
 
+open Math ;;
 let result = Math.max [cos pi ; sin pi] ;;
 
 (*......................................................................
@@ -86,4 +87,4 @@ in a more succinct manner.
 
 let result_local_open = 
   let open Math in
-     Math.max [cos pi ; sin pi] ;;
+     max [cos pi ; sin pi] ;;

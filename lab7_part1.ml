@@ -1,3 +1,5 @@
+open Float ;;
+open List ;;
 (*
                               CS51 Lab 7
                    Modules and Abstract Data Types
@@ -57,11 +59,14 @@ temporary value pending your putting in appropriate ones.)
 
 module Math : MATH =
   struct
-    let pi = nan
-    let cos _ = nan
-    let sin _ = nan
-    let sum _ _ = nan
-    let max _ = None
+    let pi = 3.14
+    let cos = cos 
+    let sin = sin 
+    let sum = (+.)
+    let max a = 
+    match a with 
+    | [] -> None
+    | hd :: tl -> Some (fold_left (fun x y -> if x >=y then x else y) hd tl)
   end ;;
 
 (*......................................................................
@@ -71,7 +76,7 @@ type float option. Name the resulting value `result`. (Use explicit
 module prefixes for this exercise, not global or local opens.)
 ......................................................................*)
 
-let result = Some nan ;;
+let result = Math.max [cos pi ; sin pi] ;;
 
 (*......................................................................
 Exercise 1C: Reimplement the computation from 1B above, now as
@@ -79,4 +84,6 @@ Exercise 1C: Reimplement the computation from 1B above, now as
 in a more succinct manner.
 ......................................................................*)
 
-let result_local_open = Some nan ;;
+let result_local_open = 
+  let open Math in
+     Math.max [cos pi ; sin pi] ;;

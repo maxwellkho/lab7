@@ -66,19 +66,20 @@ module Stack : STACK =
   struct
     exception EmptyStack
 
-    type 'a stack = 'a      (* replace this with the correct
-                               implementation type *)
+    type 'a stack = 'a list
 
     (* empty -- An empty stack *)
-    let empty : 'a stack = failwith "empty not implemented"
+    let empty : 'a stack = []
 
     (* push i s -- Adds an element i to the top of stack s *)
-    let push (i : 'a) (s : 'a stack) : 'a stack = failwith "push not implemented"
+    let push (i : 'a) (s : 'a stack) : 'a stack = i :: s
 
     (* pop_helper s -- Returns a pair of the top element of the
        stack and a stack containing the remaining elements *)
-    let pop_helper (s : 'a stack) : 'a * 'a stack =
-      failwith "pop_helper not implemented"
+    let pop_helper (s : 'a stack) : 'a * 'a stack = 
+      match s with
+      | [] -> raise EmptyStack
+      | hd :: tl -> (hd, tl)
 
     (* top s -- Returns the value of the topmost element on stack s,
        raising the EmptyStack exception if there is no element to be
@@ -99,12 +100,14 @@ argument and uses your Stack module to return a new stack with the
 following strings pushed in order: `"Computer"`, `"Science"`, `"51"`.
 ......................................................................*)
 
-let sample_stack = fun _ -> failwith "sample_stack not implemented" ;;
+open Stack ;;
+
+let sample_stack () : string stack =
+  push "51" (push "Science" (push "Computer" empty)) ;;
 
 (*......................................................................
 Exercise 4C: Write an expression to generate a stack with the
 `sample_stack` function above and name the top element `top_el`.
 ......................................................................*)
 
-let top_el : string =
-  "replace me with an expression using the Stack module" ;;
+let top_el : string = top (sample_stack ()) ;;

@@ -62,7 +62,8 @@ module IntListStack =
     let empty : stack = []
 
     (* push i s -- Adds an integer element i to the top of stack s *)
-    let push (i : int) (s : stack) : stack = i :: s
+    let push (i : int) (s : stack) : stack = 
+      i :: s
 
     (* top s -- Returns the value of the topmost element on stack s,
        raising the EmptyStack exception if there is no element to be
@@ -94,7 +95,7 @@ order.
 open IntListStack ;;
 
 let small_stack () : stack =
-  push 1 (push 5 empty) ;;
+  empty |> push 5 |> push 1 ;;
 
 (*......................................................................
 Exercise 3C: Now, use `IntListStack` functions to write an expression that
@@ -121,8 +122,8 @@ with the elements inverted, *without using any of the `IntListStack`
 methods*.
 ......................................................................*)
 
-let invert_stack (s : stack) : stack =
-  List.rev s ;;
+let invert_stack : stack -> stack =
+  List.rev ;;
 
 (* Now what would be the result of the top operation on a stack
 inverted with `invert_stack`? Let's try it.
@@ -172,7 +173,8 @@ list`, even though that's the type you used in your implementation.
 
 module type INT_STACK =
   sig
-    type stack = int list
+    exception EmptyStack
+    type stack
 
     val empty : stack
     val push : int -> stack -> stack
@@ -197,6 +199,6 @@ perform list operations directly on it, which means the stack
 preserves its abstraction barrier.
 ......................................................................*)
 
-let safe_stack () = 
+let safe_stack () : SafeIntListStack.stack = 
   let open SafeIntListStack in
-    push 1 (push 5 empty) ;;
+    empty |> push 5 |> push 1 ;;
